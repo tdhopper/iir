@@ -307,6 +307,7 @@ class TestHDPLDA(unittest.TestCase):
         V = 7
         model = hdplda2.HDPLDA(alpha, beta, gamma, docs, V)
 
+        # Section 1
         j = 0
         i = 0
         v = docs[j][i]
@@ -336,7 +337,7 @@ class TestHDPLDA(unittest.TestCase):
         self.assertEqual(model.n_jt[j][t_new], 1) # ふえた
         self.assertEqual(model.n_kv[k_new][v], beta + 1)
 
-
+        # Section 2
         i = 1 # the existed table
         v = docs[j][i]
         self.assertEqual(v, 1)
@@ -352,13 +353,14 @@ class TestHDPLDA(unittest.TestCase):
         self.assertAlmostEqual(p_t[0], p0 / (p0 + p1))  # 0.10151692
         self.assertAlmostEqual(p_t[1], p1 / (p0 + p1))  # 0.89848308
 
+        # Section 3
         t_new = 1
         model.seat_at_table(j, i, t_new)
         self.assertEqual(model.t_ji[j][i], t_new)
         self.assertEqual(model.n_jt[j][t_new], 2) # ふえた
         self.assertEqual(model.n_kv[k_new][v], beta + 1)
 
-
+        # Section 4
         i = 2
         v = docs[j][i]
         self.assertEqual(v, 2)
