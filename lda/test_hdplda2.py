@@ -158,6 +158,7 @@ class TestHDPLDA(unittest.TestCase):
         k1 = model.add_new_dish()
         k2 = model.add_new_dish()
 
+        # Section 1
         j = 0
         t1 = model.add_new_table(j, k1)
         t2 = model.add_new_table(j, k2)
@@ -184,22 +185,24 @@ class TestHDPLDA(unittest.TestCase):
 
         #model.dump()
 
+        # Section 2
         # test for topic-word distribution
         phi = model.worddist()
         self.assertEqual(len(phi), 2)
         self.assertAlmostEqual(phi[0][0], (beta+3)/(V*beta+5))
         self.assertAlmostEqual(phi[0][2], (beta+1)/(V*beta+5))
         self.assertAlmostEqual(phi[0][3], (beta+1)/(V*beta+5))
-        for v in [1,4,5,6]:
-            self.assertAlmostEqual(phi[0][v], (beta+0)/(V*beta+5))
         self.assertAlmostEqual(phi[1][1], (beta+3)/(V*beta+7))
         self.assertAlmostEqual(phi[1][4], (beta+1)/(V*beta+7))
         self.assertAlmostEqual(phi[1][5], (beta+2)/(V*beta+7))
         self.assertAlmostEqual(phi[1][6], (beta+1)/(V*beta+7))
+        for v in [1,4,5,6]:
+            self.assertAlmostEqual(phi[0][v], (beta+0)/(V*beta+5))
         for v in [0,2,3]:
             self.assertAlmostEqual(phi[1][v], (beta+0)/(V*beta+7))
 
 
+        # Section 3
         # test for document-topic distribution
         theta = model.docdist()
         self.assertEqual(theta.shape, (3, 3))
@@ -213,6 +216,8 @@ class TestHDPLDA(unittest.TestCase):
         self.assertAlmostEqual(theta[2][1], (1+alpha*  3  /(6+gamma))/(4+alpha))
         self.assertAlmostEqual(theta[2][2], (3+alpha*  3  /(6+gamma))/(4+alpha))
 
+
+        # Section 4
         j = 0
         i = 0
         v = docs[j][i]
@@ -235,6 +240,7 @@ class TestHDPLDA(unittest.TestCase):
 
         model.seat_at_table(j, i, 1)
 
+        # Section 5
         j = 0
         i = 1
         v = docs[j][i]
