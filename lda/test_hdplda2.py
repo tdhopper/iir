@@ -383,6 +383,7 @@ class TestHDPLDA(unittest.TestCase):
         self.assertAlmostEqual(p_k[0], p0 / (p0 + p1))  # 0.27835052
         self.assertAlmostEqual(p_k[1], p1 / (p0 + p1))  # 0.72164948
 
+        # Section 5
         k_new = 1 # TODO : calculate posterior of k
 
         t_new = model.add_new_table(j, k_new)
@@ -397,7 +398,7 @@ class TestHDPLDA(unittest.TestCase):
         self.assertEqual(model.n_jt[j][t_new], 1)
         self.assertEqual(model.n_kv[k_new][v], beta + 1)
 
-
+        # Section 6
         i = 3
         v = docs[j][i]
         self.assertEqual(v, 3)
