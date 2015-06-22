@@ -7,7 +7,14 @@
 # (refer to "Hierarchical Dirichlet Processes"(Teh et.al, 2005))
 
 import numpy
-from scipy.special import gammaln
+from scipy import special
+
+def gammaln(x):
+    if isinstance(x, numpy.ndarray):
+        assert all(x > 0)
+    else:
+        assert x > 0
+    return special.gammaln(x)
 
 class DefaultDict(dict):
     def __init__(self, v):
