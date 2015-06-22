@@ -248,6 +248,9 @@ class HDPLDA:
         n_jt = self.n_jt[j][t]
         n_k[k_old] -= n_jt
         n_k = n_k[self.using_k]
+        assert all(n_k > 0)
+        assert all(n_k + n_jt > 0)
+        assert all(self.m_k[self.using_k] > 0)
         log_p_k = numpy.log(self.m_k[self.using_k]) + gammaln(n_k) - gammaln(n_k + n_jt)
         log_p_k_new = numpy.log(self.gamma) + gammaln(Vbeta) - gammaln(Vbeta + n_jt)
         #print "log_p_k_new+=gammaln(",Vbeta,") - gammaln(",Vbeta + n_jt,")"
